@@ -15,7 +15,6 @@ import java.util.Optional;
 @RequestMapping("/steps")
 public class StepsController {
 
-    @Autowired
     private final StepsService stepsService;
 
     public StepsController(StepsService stepsService) {
