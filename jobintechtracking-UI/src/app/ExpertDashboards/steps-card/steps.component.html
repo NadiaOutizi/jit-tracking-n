@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Parcours</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .primary-color {
+      background-color: #7B68EE;
+    }
+
+    .primary-text {
+      color: #7B68EE;
+    }
+
+    .progress-card {
+      margin-top: 2rem;
+    }
+
+    .course-banner {
+      width: 100px;
+      height: auto;
+    }
+
+    .progress-bar {
+      background-color: #e0e0e0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress {
+      background-color: #7B68EE;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body class="p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold">Steps</h2>
+    <button routerLink="/add-step"
+      class="bg-green-500 text-white font-bold py-2 px-4 rounded-full hover:bg-green-600 flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+    </button>
+  </div>
+ <div *ngIf="stepsList.length > 0" class="space-y-6">
+
+    <div *ngFor="let steps of stepsList" class="progress-card flex items-center border p-4 rounded-lg shadow-md">
+      <img src="assets/java-banner.png" alt="Java Course Banner" class="course-banner mr-4">
+      <div class="course-details flex-1">
+        <h3 class="text-lg font-semibold">{{ steps.title }}</h3>
+        <p class="text-gray-600">{{ steps.description }}</p>
+        <div class="progress-info mt-2">
+          <div class="progress-bar w-full">
+            <div class="progress" style="width: 90%;"></div>
+          </div>
+        </div>
+      <p class="duration text-gray-500 mt-1">{{ steps.durationInMinutes }} Hour</p> 
+      </div>
+    </div>
+
+  </div> 
+</body>
+
+</html>

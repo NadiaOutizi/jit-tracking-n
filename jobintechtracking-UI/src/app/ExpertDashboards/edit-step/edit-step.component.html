@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+    
+  <div class="min-h-screen flex flex-col">
+        
+        <div class="flex justify-between items-center bg-white p-4 shadow rounded">
+            <h1 class="text-2xl font-bold">Edit Parcours: </h1>
+            <div class="flex items-center space-x-4">
+                <button class="bg-gray-200 p-2 rounded"><i class="fas fa-share"></i></button>
+                <button class="bg-gray-200 p-2 rounded"><i class="fas fa-save"></i></button>
+            </div>
+        </div>
+       
+        <div class="flex flex-grow p-6">
+            <div class="flex flex-col w-full space-y-6">
+
+                
+                <div class="flex space-x-6">
+        
+        <div  class="flex flex-col w-3/4 space-y-6">
+            
+         
+            <div class="bg-white p-4 shadow rounded">
+                <img src="assets/videotask.png" alt="Preview" class="w-full rounded shadow mb-4">
+                <div class="flex">
+                         <img src="assets/edit-icon.png" alt="Edit" class="edit-icon top-4 right-4 cursor-pointer"
+                         (click)="startEditing('title')">
+                         <h2 class="text-lg font-bold mb-2">Title</h2>
+                        </div>
+                        <h3 class="text-gray-700" *ngIf="!editingField || editingField !== 'title'">{{ step?.title }}</h3>
+                <input type="text" class="text-xl font-bold bg-transparent border-b-2 border-gray-300"
+                       *ngIf="editingField === 'title'" [value]="step?.title"
+                       (keydown.enter)="updateField($event)" (blur)="updateField($event)">
+            </div>
+            
+            
+            
+                        
+                        <div class="bg-white p-4 shadow rounded">
+                            <div class="flex mr-16">
+                              <img src="assets/edit-icon.png" alt="Edit" class="edit-icon top-4 right-4 cursor-pointer"
+                                   (click)="startEditing('description')">
+                              <h3 class="text-lg font-bold mb-2">Description</h3>
+                            </div>
+                            <p class="text-gray-700" *ngIf="!editingField || editingField !== 'description'">description </p>
+                            <textarea class="text-gray-700 bg-transparent border border-gray-300 p-2 rounded"
+                                      *ngIf="editingField === 'description'"
+                                      (keydown.enter)="updateField($event)" (blur)="updateField($event)"></textarea>
+                          </div>
+    
+ 
+        
+        <div class="bg-white p-4 shadow rounded">
+            <div class="flex ">
+                <img src="assets/edit-icon.png" alt="Edit" class="edit-icon cursor-pointer" 
+                (click)="startEditing('duration')">
+             <label class="block text-gray-700 font-bold mb-2" for="duration">Duration</label>
+         </div>
+         <div class="relative">
+             <p  *ngIf="!editingField || editingField !== 'duration'" class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                  {{ step?.durationInMinutes }} 
+        </p>
+             <input type="text"  *ngIf="editingField === 'duration'" (keydown.enter)="updateField($event)" (blur)="updateField($event)" class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+         </div>
+
+
+                       
+                        <div class="bg-white p-4 shadow rounded">
+                           
+                            <div class="flex items-center">
+                                <h3 class="text-lg font-bold mb-2">Part 1: Learning</h3>
+                            </div>
+                        
+                            
+                            <div class="flex items-center">
+                                <h3 class="text-gray-700 font-bold mr-2">Title:</h3>
+                                <img src="assets/edit-icon.png" alt="Edit" class="edit-icon cursor-pointer" (click)="startEditing('learningTitle')">
+                            </div>
+                            <p *ngIf="!editingField || editingField !== 'learningTitle'" class="text-gray-700">{{ learning?.title }}</p>
+                            <input *ngIf="editingField === 'learningTitle'" type="text" class="text-gray-700 bg-transparent border border-gray-300 p-2 w-full" [(ngModel)]="learning!.title" (keydown.enter)="updateField($event)" (blur)="updateField($event)">
+                        
+                            
+                            <div class="flex items-center mt-4">
+                                <h3 class="text-gray-700 font-bold mr-2">Description:</h3>
+                                <img src="assets/edit-icon.png" alt="Edit" class="edit-icon cursor-pointer" (click)="startEditing('learningDescription')">
+                            </div>
+                            <p *ngIf="!editingField || editingField !== 'learningDescription'" class="text-gray-700">{{ learning?.description }}</p>
+                            <textarea *ngIf="editingField === 'learningDescription'" class="text-gray-700 bg-transparent border border-gray-300 p-2 w-full" [(ngModel)]="learning!.description" (keydown.enter)="updateField($event)" (blur)="updateField($event)"></textarea>
+                        
+                            
+                            <div class="flex items-center mt-4">
+                                <h3 class="text-gray-700 font-bold mr-2">Url:</h3>
+                                <img src="assets/edit-icon.png" alt="Edit" class="edit-icon cursor-pointer" (click)="startEditing('learningUrl')">
+                            </div>
+                            <p *ngIf="!editingField || editingField !== 'learningUrl'" class="text-gray-700">{{ learning?.url }}</p>
+                            <input *ngIf="editingField === 'learningUrl'" type="text" class="text-gray-700 bg-transparent border border-gray-300 p-2 w-full" [(ngModel)]="learning!.url" (keydown.enter)="updateField($event)" (blur)="updateField($event)">
+                        </div>
+                        
+
+                        <div class="bg-white p-4 shadow rounded">
+                           
+                                <h3 class="text-lg font-bold mb-2">Part 2: Doing</h3>
+                           
+                             
+                             <div class="flex items-center">
+                                <h3 class="text-gray-700 font-bold mr-2">Task:</h3>
+                                <img src="assets/edit-icon.png" alt="Edit" class="edit-icon cursor-pointer" (click)="startEditing('task')">
+                            </div>
+                     
+                            <p *ngIf="!editingField || editingField !== 'task'" class="text-gray-700">{{ doing?.task }}</p>
+                            <input *ngIf="editingField === 'task'" type="text" class="text-gray-700 bg-transparent border border-gray-300 p-2 w-full" [(ngModel)]="doing!.task" (keydown.enter)="updateField($event)" (blur)="updateField($event)">
+                    </div>
+        </div>
+                
+
+         </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</body>
+
+</html>

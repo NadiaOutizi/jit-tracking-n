@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcours Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
+</head>
+
+<body class="p-6 bg-gray-100">
+    <div class="parcours-categories grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="category-card bg-white rounded-lg shadow-md p-4" *ngFor="let category of categories">
+            <div class="flex justify-between items-center">
+                <div class="icon">
+                    <img [src]="category.icon" alt="category icon" class="h-12 w-12">
+                </div>
+                <div class="menu-icon text-gray-500">...</div>
+            </div>
+            <div class="card-body mt-4">
+                <h3 class="text-xl font-semibold">{{ category.name }}</h3>
+                <p class="text-gray-500">{{ category.parcoursCount }} Parcours</p>
+                <span class="date text-gray-400 text-sm">{{ category.date }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <mat-form-field class="w-full my-3">
+            <input type="text" placeholder="Select Student" matInput [formControl]="studentFormControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onStudentSelectionChanged($event)">
+              <mat-option *ngFor="let student of filteredStudents | async" [value]="student.fullName">
+                {{ student.fullName }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+    </div>
+
+    <div class="mt-8">
+        <h3 class="text-2xl font-semibold mb-4">My Parcours Progress</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="parcours-card bg-white rounded-lg shadow-md overflow-hidden" *ngFor="let step of steps; let i = index" (click)="navigateToStep(step)">
+                <img src="assets/java-banner.png" alt="{{ step.title }}" class="w-full h-32 object-cover">
+                <div class="p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-semibold">{{ step.title }}</h3>
+                        </div>
+                    
+                    </div>
+                    <div class="progress-bar mt-4 bg-gray-200 rounded-full h-2">
+                        <div class="progress bg-green-500 h-2 rounded-full" [style.width.%]="step.completed ? 100 : 0"></div>
+                    </div>
+                    <div class="details mt-4 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <img src="assets/Time-Circle.png" alt="Time Icon" class="h-5 w-5">
+                            <span>{{ step.durationInMinutes }} Minutes</span>
+                        </div>
+                        <div>
+                            <span *ngIf="isStepLocked(step)" class="flex items-center space-x-2">
+                                <img src="assets/lock.png" alt="Locked Icon" class="h-5 w-5"> <span>Locked</span>
+                            </span>
+                            <button *ngIf="!isStepLocked(step) && !step.completed && !step.startTime" (click)="startStep(step)" class="bg-blue-500 text-white px-4 py-1 rounded-full hover:bg-blue-600">
+                                Start
+                            </button>
+                            <button *ngIf="isStepLockedAfterFinishTime(step)" class="bg-red-500 text-white px-4 py-1 rounded-full cursor-not-allowed">
+                                Finished
+                              </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

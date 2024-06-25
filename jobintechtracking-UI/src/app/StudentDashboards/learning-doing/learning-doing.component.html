@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center bg-white p-4 shadow rounded" *ngFor="let learning of learnings">
+            <h1 class="text-2xl font-bold">{{ learning.title }}</h1>
+            <div class="flex items-center space-x-4">
+                <button class="bg-gray-200 p-2 rounded"><i class="fas fa-share"></i></button>
+                <button class="bg-gray-200 p-2 rounded"><i class="fas fa-save"></i></button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex flex-grow p-6">
+            <div class="flex flex-col w-full space-y-6">
+                <!-- Content -->
+                <div class="flex space-x-6">
+                    <!-- Main Section -->
+                    <div class="flex flex-col w-3/4 space-y-6" *ngFor="let learning of learnings">
+                        <!-- Description -->
+                        <div class="bg-white p-4 shadow rounded">
+                            <h3 class="text-lg font-bold mb-2">Description</h3>
+                            <p class="text-gray-700">{{ learning.description }}</p>
+                        </div>
+
+                        <!-- Parts -->
+                        <div class="bg-white p-4 shadow rounded">
+                            <h3 class="text-lg font-bold mb-2">Part 1: Learning</h3>
+                            <ul class="list-disc text-gray-700">
+                                <li class="flex items-center" *ngFor="let url of learning.url">
+                                    <img src="assets/tick-circle.png" alt="tick" class="mr-2">
+                                    <a [href]="url" class="text-blue-500">{{ url }}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-4 shadow rounded">
+                            <h3 class="text-lg font-bold mb-2">Part 2: Doing</h3>
+                            <ul class="list-disc text-gray-700">
+                                <li class="flex items-center" *ngFor="let doing of doings">
+                                    <img src="assets/tick-circle.png" alt="tick" class="mr-2">{{ doing.task }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Section -->
+                    <div class="w-1/4 flex flex-col space-y-6">
+                        <!-- Tools Input -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-bold mb-2 flex items-center" for="tools">
+                                <img src="assets/gitlab.png" alt="GitLab" class="mr-2">GitLab
+                            </label>
+                            <input type="text" [(ngModel)]="currentTaskUrl" placeholder="Enter task URL" class="w-full mb-2 px-4 py-2 border rounded">
+                            <button (click)="completeStep(currentStep, currentTaskUrl)" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Complete</button>
+                         
+                        </div>
+
+                  
+                        <div class="mb-4">
+                            <input type="text" [(ngModel)]="currentTaskUrl" placeholder="Enter task URL" class="w-full mb-2 px-4 py-2 border rounded">
+                            <button (click)="completeStep(currentStep, currentTaskUrl)" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Complete</button>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
