@@ -14,7 +14,7 @@ import { StepsComponent } from './ExpertDashboards/steps-card/steps.component';
 const routes: Routes = [
 
   { path: 'steps/parcours/:parcoursId', component: StepsComponent },
-  { path: 'edit-step', component: EditStepComponent },
+  { path: 'edit-step/:id', component: EditStepComponent },
   { path: 'add-step', component: AddStepComponent },
   
   { path: 'step-progress' , component:ParcoursProgressComponent},

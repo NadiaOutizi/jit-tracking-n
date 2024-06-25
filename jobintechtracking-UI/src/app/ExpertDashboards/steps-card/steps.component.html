@@ -53,23 +53,24 @@
       </svg>
     </button>
   </div>
- <div *ngIf="stepsList.length > 0" class="space-y-6">
+  <div *ngIf="stepsList.length > 0" class="space-y-6">
 
     <div *ngFor="let steps of stepsList" class="progress-card flex items-center border p-4 rounded-lg shadow-md">
       <img src="assets/java-banner.png" alt="Java Course Banner" class="course-banner mr-4">
       <div class="course-details flex-1">
-        <h3 class="text-lg font-semibold">{{ steps.title }}</h3>
-        <p class="text-gray-600">{{ steps.description }}</p>
+        <h3 [routerLink]="['/edit-step', steps.id]"  class="text-lg font-semibold">{{ steps.title }}</h3>
+        <p [routerLink]="['/edit-step', steps.id]" class="text-gray-600">{{ steps.description}}</p>
         <div class="progress-info mt-2">
           <div class="progress-bar w-full">
             <div class="progress" style="width: 90%;"></div>
           </div>
         </div>
-      <p class="duration text-gray-500 mt-1">{{ steps.durationInMinutes }} Hour</p> 
+        <p [routerLink]="['/edit-step', steps.id]" class="duration text-gray-500 mt-1">{{ steps.durationInMinutes }} Hour</p>
       </div>
     </div>
 
-  </div> 
+  </div>
 </body>
 
 </html>
+<router-outlet></router-outlet>

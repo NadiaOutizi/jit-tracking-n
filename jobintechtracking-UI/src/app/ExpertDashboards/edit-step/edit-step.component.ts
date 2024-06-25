@@ -10,7 +10,7 @@ import { Doing } from '../../models/doing';
   templateUrl: './edit-step.component.html',
   styleUrls: ['./edit-step.component.css']
 })
-export class EditStepComponent  {
+export class EditStepComponent implements OnInit {
   stepId!: number;
   step: Step | null = null;
   learning: Learning | null = null;
@@ -56,15 +56,14 @@ export class EditStepComponent  {
         this.step.title = newValue;
       } else if (this.editingField === 'description') {
         this.step.description = newValue;
-      } else if (this.editingField === 'duration') {
+      } else if (this.editingField === 'durationInMinutes') {
         this.step.durationInMinutes = parseInt(newValue, 10);
       } else if (this.editingField === 'learningTitle'){
         this.learning!.title = newValue;
       }else if(this.editingField === 'learningDescription'){
          this.learning?.description === newValue;
-      
       }else if(this.editingField === 'task'){
-         this.learning?.description === newValue;
+        this.doing?.task === newValue;
       }
     
 
@@ -81,4 +80,3 @@ export class EditStepComponent  {
     }
   }
 }
-
